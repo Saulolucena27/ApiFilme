@@ -10,7 +10,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "filmes")
+@Document(collection = "filmes")
 public class Filmes {
 
     private ObjectId id;
