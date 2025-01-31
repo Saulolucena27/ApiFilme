@@ -7,21 +7,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "pessoas")
+@Table(name="pessoas")
 public class Pessoas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(nullable = false, length = 50)
     private int id;
-
-    @Column(nullable = false, length = 100, unique = true)
+    @Column(nullable = false, length = 100)
     private String nome;
-
-    @Column(nullable = false, length = 100, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
-
-    @Column(nullable = false, length = 100, unique = true)
+    @Column(nullable = false,unique = true, length = 100)
     private String cpf;
 
     public int getId() {
