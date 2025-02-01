@@ -26,4 +26,9 @@ public class PessoasController {
     public ResponseEntity<List<Pessoas>> listarPessoas(){
         return ResponseEntity.ok(pessoasService.todasPessoas());
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Pessoas> buscarPessoa(@PathVariable Integer id){
+        return ResponseEntity.ok(pessoasService.buscarPessoaPorId(id));
+    }
+
 }

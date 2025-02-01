@@ -12,5 +12,4 @@ public class ApiFilmesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiFilmesApplication.class, args);
 	}
-
 }
