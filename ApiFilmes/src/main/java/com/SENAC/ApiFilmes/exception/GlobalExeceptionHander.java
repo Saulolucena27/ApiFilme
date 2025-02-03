@@ -9,4 +9,8 @@ public class GlobalExeceptionHander {
     public ResponseEntity<String> tratarPessoaNaoEncontradaException(PessoaNaoEncontradaException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+    @ExceptionHandler(FilmeInvalidoException.class)
+    public ResponseEntity<String> handleFilmeInvalidoException(FilmeInvalidoException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
