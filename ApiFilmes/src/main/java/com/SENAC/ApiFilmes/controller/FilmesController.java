@@ -1,39 +1,35 @@
 package com.SENAC.ApiFilmes.controller;
 
-import com.SENAC.ApiFilmes.entity.Filmes;
-import com.SENAC.ApiFilmes.exception.FilmeInvalidoException;
-import com.SENAC.ApiFilmes.service.FilmesService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.SENAC.ApiFilmes.entity.FilmeCRUD;
+import com.SENAC.ApiFilmes.service.FilmeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/filmes")
 public class FilmesController {
-
-    private final FilmesService filmesService;
-
-    public FilmesController(FilmesService filmesService) {
-        this.filmesService = filmesService;
-    }
+    @Autowired
+    private FilmeService filmeService;
 
     @GetMapping
-    public ResponseEntity<List<Filmes>> todosFilmes() {
-        return new ResponseEntity<>(filmesService.todosFilmes(), HttpStatus.OK);
+    public List<FilmeCRUD> listarTodos() {
+        return filmeService.listarTodos();
     }
 
-    @PostMapping("/filmes")
-    public ResponseEntity<Filmes> cadastrarFilme(@RequestBody Filmes filme) {
-        if (filme == null || filme.getTitle() == null || filme.getTitle().trim().isEmpty() ||
-                filme.getGenres() == null || filme.getGenres().isEmpty()) {
-            throw new FilmeInvalidoException("O filmes informado é inválido. Verifique os campos obrigatórios.");
-        }
-
-        Filmes novoFilme = filmesService.salvarFilme(filme);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoFilme);
+    @GetMapping("/{id}")
+    public Optional<FilmeCRUD> buscarPorId(@PathVariable Long id) {
+        return filmeService.buscarPorId(id);
     }
 
+    @PostMapping
+    public FilmeCRUD salvar(@RequestBody FilmeCRUD filme) {
+        return filmeService.salvar(filme);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id) {
+        filmeService.deletar(id);
+    }
 }
